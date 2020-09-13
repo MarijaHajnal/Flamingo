@@ -665,7 +665,6 @@ h2 {
   height: 8vmin;
 }
 #cool, #snf, #fitness {
-  display: inline;
   width: 3.5vmin;
   height: 3.5vmin;
   vertical-align: middle;
