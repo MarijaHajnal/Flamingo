@@ -1,0 +1,793 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  /* background: #61515A; */
+  background: #4A3B4B;
+  transition: ease-in-out 1000ms;
+}
+h1 {
+  text-align: center;
+  color: lightgrey;
+  margin: 5vmin;
+  left: 45vmin;
+ }
+h2 {
+  margin: 5vmin;
+  color: lightgrey;
+}
+ p {
+  font-size: 1.1rem;
+  color: lightgrey;
+  padding: 1vmin;
+ }
+
+/* GRID start ----------------------------------  */
+.all {
+  width: 95vw;
+  height: 75vh;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:  "container option-container";
+}
+.option-container {
+  grid-area: option-container;
+}
+.container {
+  grid-area: container;
+}
+/* GRID end --------------------------------------*/
+
+
+/* ANIMATIONS -------------------------------------- */
+/* appear from up */
+@keyframes appear {
+  from {
+    transform: translate3d(0, -15vmin, 0);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* appear from down animation */
+@keyframes appear-down {
+  from {
+    transform: translate3d(0, 25vmin, 0);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes head-move {
+  from{
+    transform: rotateZ(-5deg), rotateX(-5deg);
+  }
+  to{
+    transform: rotateX(5deg);
+  }
+}
+@keyframes wing-move {
+  from{
+    top: -6vmin;
+    left:-3vmin;
+  }
+  to{
+    top: -6vmin;
+    left:-3vmin;
+    transform: rotateZ(50deg);
+  }
+}
+@keyframes swing {
+  from{
+    transform: rotateZ(1deg);
+  }
+  to{
+    transform: rotateZ(3deg);
+  }
+}
+@keyframes body-move {
+  from{
+    transform: translateX(2vmin);
+  }
+  to{
+    transform: rotateZ(-10deg), translateX(-5vmin);
+  }
+}
+/* normal walk */
+@keyframes walk {
+  from{
+    transform: rotateZ(-10deg);
+  }
+  to{
+    transform: rotateX(15deg);
+  }
+}
+/* angry feet stumps used on mood slider */
+@keyframes moody {
+  from{
+    transform: rotateX(-50deg);
+  }
+  to{
+    transform: rotateX(5deg);
+  }
+}
+@keyframes disco-turn {
+  0% {
+    left: 38vmin;
+    top: 7vmin;
+  }
+  50% {
+    top: 8vmin;
+  }
+  100% {
+    left: 42vmin;
+    top: 7vmin;
+    filter: hue-rotate(280deg);
+    transform: translate(10deg);
+  }
+}
+@keyframes disco-light {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(280deg);
+  }
+}
+/* ANIMATIONS  end ------------------------------- */
+
+/* MOODY SLIDER does this to flamingo --------------*/
+
+/* flamingo turns red below 10% */
+.flamingo.angry {
+  transition: ease-in-out 850ms 500ms;
+  filter: hue-rotate(40deg) saturate(3) sepia(0.32) ;
+}
+
+/* eyebrows below 30% change */
+.flamingo-eyes.moody {
+  box-shadow: -0.6vmin -0.5vmin 0 0 black,
+              2vmin 0 0 #F093CB,
+              -1vmin 0.2vmin 0 #F093CB,
+              inset -0.3vmin 0.8vmin 0 0.9vmin #F093CB,
+              inset -2vmin 0.2vmin 0 0vmin white,
+              inset 1vmin 1vmin 0 0vmin #F093CB;
+  transition: ease-in-out 300ms;
+}
+
+/* legs bellow 50%  */
+.left-leg.moody {
+  animation: moody 1000ms infinite alternate;
+}
+.right-leg.moody {
+  animation: moody 1000ms 500ms infinite alternate;
+}
+
+/* flamingo sways at 60% */
+.flamingo.appear, .flamingo-head.appear, .head-neck.appear .flamingo-body.appear {
+  animation: body-move 550ms ease-in-out infinite alternate;
+  transition: ease-in-out 300ms;
+}
+
+/* at 98% flamingo changes colors */
+.flamingo.hue {
+  animation: disco-light 550ms 100ms ease-in-out infinite alternate;
+}
+/* /* MOODY SLIDER does this to flamingo --end----- */
+
+
+/* FLAMINGO CSS DRAWING STYLES-------------------- */
+.flamingo {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 55vmin;
+  height: 30vmin;
+  filter: drop-shadow(1vmin 1vmin 1vmin #352A30);
+  transform-origin: bottom;
+  transition: ease-in-out 450ms;
+}
+.flamingo-head, .flamingo-head::before, .flamingo-head::after {
+  position: absolute;
+  border-radius: 50%;
+}
+/* main head shape ----------------*/
+.flamingo-head {
+  top: 4vmin;
+  left: 14vmin;
+  height: 7vmin;
+  width: 11vmin;
+  background: #F093CB;
+  transform: rotate(-30deg);
+  animation: head-move 2850ms ease-in-out infinite alternate;
+  transform-origin: center;
+  z-index: 1;
+}
+/* Beak -------------------------*/
+.flamingo-head::before {
+  content: '';
+  left: 2vmin;
+  width: 5vmin;
+  height: 13vmin;
+  box-shadow: 1.8vmin -3vmin 0 0 #F5CBBD,
+              0.9vmin -4vmin 0 0 black;
+  transform: rotate(-100deg);
+}
+/* Eye ------------------------ */
+.flamingo-eyes {
+  position: absolute;
+  top: 1.6vmin;
+  left: 2vmin;
+  width: 4vmin;
+  height: 2.5vmin;
+  background: black;
+  border-radius: 50%;
+  box-shadow: 0.6vmin -0.5vmin 0 0 black, /* -0.6 for angry mode*/
+              2vmin 0 0 #F093CB,
+              -1vmin 0.2vmin 0 #F093CB,
+              inset -0.3vmin 0.8vmin 0 0.9vmin #F093CB,
+              inset -2vmin 0.2vmin 0 0vmin white,
+              inset 1vmin 1vmin 0 0vmin #F093CB;
+  transition: ease-in-out 300ms;
+  z-index: 6;
+}
+/* head and neck */
+.head-neck {
+   animation: swing 1850ms ease-in-out infinite alternate;
+}
+/* Flamingo neck ------------ */
+.flamingo-neck, .flamingo-neck::before {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+}
+.flamingo-neck {
+  top: 10vmin;
+  left: 25vmin;
+  width: 25vmin;
+  height: 32vmin;
+  box-shadow: -3vmin -4vmin 0 0 #F093CB;
+  transform: rotateY(-20deg) rotate(-70deg) ;
+}
+/* upper neck */
+.flamingo-neck::before {
+  content: '';
+  top: -13.7vmin;
+  left: 16vmin;
+  width: 10vmin;
+  height: 14.5vmin;
+  box-shadow: 2vmin 2vmin 0 0 #F093CB;
+  transform: rotate(20deg);
+}
+/* Flamingo  body ---------------------*/
+.flamingo-body,  .flamingo-body::before {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+}
+/* main body circle ---------------*/
+.flamingo-body {
+  top: 27vmin;
+  left: 25vmin;
+  height: 15vmin;
+  width: 25vmin;
+  background: #F093CB;
+  transform: rotate(10deg);
+  animation: swing 550ms ease-in-out infinite alternate;
+  transition: ease-in-out 450ms;
+}
+/* Flamingo wing ------------------*/
+.flamingo-wing {
+  position: absolute;
+  top: -5vmin;
+  left: -5vmin;
+  width: 13vmin;
+  height: 18vmin;
+  border-radius: 50%;
+  box-shadow: -2vmin -2vmin 0 0 #E788C1,
+              -4vmin -3vmin 0 0 #CD85B5,
+              -6vmin -3vmin 0 0 #E788C1,
+              -8vmin -1vmin 0 0 #CD85B5;
+  transform: rotate(85deg);
+  transition: ease-in-out 400ms;
+  transform-origin: bottom;
+  z-index: 1;
+}
+.flamingo-wing.appear {
+    animation: wing-move 1000ms 1000ms ease-in-out infinite alternate;
+}
+/* Flamingo tail */
+.flamingo-body::before {
+  content: '';
+  top: 9vmin;
+  left: 22vmin;
+  width: 5vmin;
+  height: 8vmin;
+  box-shadow: -1vmin -2vmin 0 0 #CD85B5,
+              -2vmin -3vmin 0 0 #F093CB,
+              -3vmin -3vmin 0 0 #CD85B5,
+              -4vmin -2.5vmin 0 0 #F093CB;
+  transform: rotate(95deg);
+}
+
+/* FLAMINGO LEGS ----------------------------------- */
+.flamingo-leg-left, .flamingo-leg-right,
+.flamingo-leg-left::after, .flamingo-leg-right::after {
+  position: absolute;
+  top: 35vmin;
+  height: 15vmin;
+  width: 1.5vmin;
+  border-radius: 50%;
+  background: #F0A993;
+  transform: rotate(10deg);
+  transition: ease-in-out 300ms;
+}
+/* ::after is lower leg part */
+.flamingo-leg-left::after, .flamingo-leg-right::after {
+  content: '';
+  top: 12vmin;
+  left: 1vmin;
+  width: 1vmin;
+  transform: rotate(-10deg);
+}
+.flamingo-leg-left {
+  left: 32vmin;
+}
+.flamingo-leg-right {
+  left: 35vmin;
+}
+/* Knee and knuckle circles */
+.flamingo-leg-left::before, .flamingo-leg-right::before {
+  content: '';
+  position: absolute;
+  top: 14vmin;
+  left: -0.3vmin;
+  border-radius: 50%;
+  background: #F0A993;
+  box-shadow: 2vmin 11vmin 0 #F0A993;
+  width: 2vmin;
+  height: 2.5vmin;
+}
+/* legs default walk animation is called here */
+.left-leg {
+  animation: walk 450ms 533ms ease-in-out infinite alternate;
+}
+.right-leg {
+  animation: walk 450ms ease-in-out infinite alternate;
+}
+/* FLAMINGO LEGS end ---------------- */
+
+
+/* Flamingo feet--------------------- */
+.claws-left, .claws-right {
+  position: absolute;
+  top: 58.5vmin;
+  left: 29.5vmin;
+  height: 5vmin;
+  width: 1vmin;
+  border-radius: 50%;
+  background: #F0A993;
+  box-shadow: 1vmin 1vmin 0 #F0A993;
+  transform: rotate(90deg);
+}
+.claws-right {
+  top: 59.5vmin;
+  left: 32.5vmin;
+  transform: rotate(70deg);
+}
+/* additional finger, not sure if needed */
+.claws-left::after, .claws-right::after {
+  content: '';
+  position: absolute;
+  left: 1vmin;
+  height: 5vmin;
+  width: 1vmin;
+  border-radius: 50%;
+  background: #F0A993;
+  transform: rotate(-30deg);
+}
+/* Flamingo feet end-------------------- */
+
+/* COOL EFFECT STYLES start (hat and glasses): ----*/
+/* hat */
+.hat, .hat::before {
+  position: absolute;
+}
+.hat {
+  top: 1.7vmin;
+  left: 3vmin;
+  height: 1.2vmin;
+  width: 14.5vmin;
+  background: purple;
+  border-radius: 0% 50% 50% 0%;
+  box-shadow: 0 0.3vmin 0.4vmin black;
+  opacity: 0;
+  transform: rotate(25deg);
+  z-index: 3;
+}
+.hat::before {
+  content: '';
+  top: -5vmin;
+  left: 0vmin;
+  height: 5vmin;
+  width: 9vmin;
+  background: linear-gradient(90deg, pink 20%, purple 20%, purple 58%, pink 60%, pink 80%, purple 80%);
+  border-radius: 50% 50% 0% 0%;
+}
+.hat.appear {
+  animation: appear 1000ms 900ms cubic-bezier(1,1.94,.08,.33) forwards;
+}
+/* glasses ----------- */
+.glasses, .glasses::before, .glasses::after {
+  position: absolute;
+  border-radius: 50%;
+  background: black;
+}
+/* left and right glass */
+.glasses {
+  top: 3vmin;
+  left: -5vmin;
+  height: 0.6vmin;
+  width: 17vmin;
+  opacity: 0;
+  display:none;
+  transform: rotate(20deg);
+  z-index: 8;
+}
+/* used for middle line that hold glasses together */
+.glasses::before {
+  content: '';
+  top: -1.5vmin;
+  left: -1vmin;
+  height: 3.5vmin;
+  width: 6vmin;
+  box-shadow: 0 -0.3vmin 0 0.3vmin pink,
+              7.5vmin 0 0 black,
+              7.5vmin -0.5vmin 0 0.3vmin pink;
+}
+/* circle around ear */
+.glasses::after {
+  content: '';
+  top: 0.08vmin;
+  left: 14vmin;
+  height: 2vmin;
+  width: 3vmin;
+  background: transparent;
+  border-right: 0.6vmin solid black;
+}
+.glasses.appear {
+  animation: appear 1000ms cubic-bezier(1,1.94,.08,.33) forwards;
+  display: unset;
+}
+/* COOL EFFECT STYLES end ------------------------*/
+
+
+/* FITNESS EFFECT end------------------------------ */
+/* headband */
+.headband {
+  position: absolute;
+  top: 1vmin;
+  left: 1.7vmin;
+  width: 9.5vmin;
+  height: 2vmin;
+  border-radius: 20%;
+  opacity: 0;
+  background: linear-gradient(180deg, #862C33 32.81%, #F1DCDE 32.82%, #EED8DA 61.46%, #862C33 61.47%);
+  transform: rotate(20deg);
+  z-index: 7;
+}
+.headband.appear {
+  animation: appear 800ms 500ms cubic-bezier(1,1.94,.08,.33) forwards;
+}
+/* gym weights */
+.fitness-weight {
+  position: absolute;
+  top: -0vmin;
+  left: -1vmin;
+  width: 16vmin;
+  height: 2vmin;
+  background: grey;
+  border-radius: 20%;
+  opacity: 0;
+  transform: rotate(90deg);
+  filter: drop-shadow(0 -0.3vmin 0.4vmin black);
+  transform-origin: top;
+}
+.fitness-weight::before {
+  content: '';
+  position: absolute;
+  top: -3vmin;
+  left: 1.5vmin;
+  width: 2vmin;
+  height: 8vmin;
+  border-radius: 20%;
+  background: black;
+  box-shadow: 11vmin 0 0 black;
+}
+.fingers {
+  position: absolute;
+  top: -2vmin;
+  left: 5vmin;
+  width: 3.3vmin;
+  height: 1.3vmin;
+  border-radius: 50%;
+  opacity: 0;
+  background: #E788C1;
+  box-shadow: 0vmin 1.2vmin 0 #E788C1, 0 2.3vmin 0 #E788C1;
+}
+.fingers.appear {
+  opacity: 1;
+  transition: 450ms 300ms ease-in-out;
+}
+.fitness-weight.appear{
+  animation: appear 500ms ease-in-out forwards;
+}
+/* FITNESS EFFECT end------------------------------ */
+
+
+/* SATURDAY NIGHT FEVER EFFECT start (hair, pants, discoball, discofloor): */
+/* hair */
+.hair {
+  position: absolute;
+  top: -5.9vmin;
+  left: 5vmin;
+  background: black;
+  border-radius: 50% ;
+  box-shadow: inset -1vmin 0 0 grey, 1.3vmin -3vmin 0 0 black;
+  width: 13vmin;
+  height: 14vmin;
+  transform: rotate(-45deg);
+  opacity: 0;
+  z-index: 4;
+}
+.hair.appear {
+  animation: appear 1000ms cubic-bezier(1,1.94,.08,.33) forwards;
+}
+/* pants */
+.pants-left, .pants-right {
+  position: absolute;
+  top: 35vmin;
+  left: 31vmin;
+  width: 3vmin;
+  height: 25vmin;
+  background: beige;
+  opacity: 0;
+  box-shadow: inset -0.5vmin 0 0.5vmin black;
+  transform: rotate(10deg);
+}
+.pants-right {
+  left: 33vmin;
+}
+.pants-left::after, .pants-right::after{
+  content: '';
+  position: absolute;
+  top: 14.9vmin;
+  width: 2.9vmin;
+  height: 10vmin;
+  border-radius: 50% 50% 0 0;
+  background: beige;
+}
+.pants-left::after{
+  left: -1vmin;
+  transform: rotate(15deg);
+}
+.pants-right::after{
+  left: 1vmin;
+  transform: rotate(-15deg);
+}
+.pants-left.appear, .pants-right.appear {
+  animation: appear-down 600ms ease-in forwards;
+}
+/* discoball */
+.disco-ball {
+  position: absolute;
+  top: 8vmin;
+  left: 38vmin;
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 50%;
+  opacity: 0;
+  background: linear-gradient(180deg, #F1EB5D 8.42%, #BB6EF8 9.73%, #BB6EF8 18.91%, #C4C4C4 19.24%, #C4C4C4 30.06%, #53FEFE 31.04%, #7FFE53 45.14%, #C4C4C4 45.47%, #C4C4C4 59.23%, #53FEFE 60.22%, #53FEFE 69.4%, #FE53C4 72.35%, #FE53C4 78.25%, #C4C4C4 79.56%, #C4C4C4 88.74%, #F1EB5D 89.72%);
+  animation: disco-turn 1000ms ease-in-out infinite alternate;
+}
+.disco-ball::after {
+  position: absolute;
+  top: 10vmin;
+  left: -5vmin;
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #F1EB5D 8.42%, #BB6EF8 9.73%, #BB6EF8 18.91%, #C4C4C4 19.24%, #C4C4C4 30.06%, #53FEFE 31.04%, #7FFE53 45.14%, #C4C4C4 45.47%, #C4C4C4 59.23%, #53FEFE 60.22%, #53FEFE 69.4%, #FE53C4 72.35%, #FE53C4 78.25%, #C4C4C4 79.56%, #C4C4C4 88.74%, #F1EB5D 89.72%);
+  content: '';
+  top: 0vmin;
+  left: 0vmin;
+  opacity: 0.6;
+  transform: rotate(90deg);
+  box-shadow: inset 0 0 1vmin 0.5vmin black;
+  animation: disco-light 300ms ease-in-out infinite alternate;
+}
+.disco-ball::before {
+  content: '';
+  position: absolute;
+  top: -12vmin;
+  left: 5vmin;
+  height: 12vmin;
+  width: 0.3vmin;
+  background: grey;
+}
+.disco-ball.appear {
+  animation: appear-down 1000ms ease-in-out forwards,
+            disco-turn 1000ms ease-in-out infinite alternate;
+}
+/* disco floor */
+.disco-floor, .disco-floor::after {
+  position: absolute;
+  top: 62vmin;
+  left: 40vmin;
+  width: 30vmin;
+  height: 20vmin;
+  transform: rotateZ(15deg) skewX(-50deg);
+  opacity: 0;
+  background: linear-gradient(180deg, #F1EB5D 8.42%, #BB6EF8 9.73%, #BB6EF8 18.91%, #C4C4C4 19.24%, #C4C4C4 30.06%, #53FEFE 31.04%, #7FFE53 45.14%, #C4C4C4 45.47%, #C4C4C4 59.23%, #53FEFE 60.22%, #53FEFE 69.4%, #FE53C4 72.35%, #FE53C4 78.25%, #C4C4C4 79.56%, #C4C4C4 88.74%, #F1EB5D 89.72%);
+}
+.disco-floor::after {
+  content: '';
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+  transform: rotate(90deg);
+}
+.disco-floor.appear{
+  animation: appear-down 1000ms ease-in-out forwards,
+            disco-light 1000ms ease-in-out infinite alternate;
+}
+/* SATURDAY NIGHT FEVER EFFECT end---------------------------*/
+
+
+/* CHECKBOX STYLES start ----------------------- */
+.check-container {
+  color: lightgrey;
+  font-size: 1.3rem;
+  width: 40vmin;
+  height: 25vmin;
+  margin-top: 5vmin;
+  padding: 5vmin;
+}
+.cool-check, .snf-check, .fitness-check {
+  display: block;
+  width: 30vmin;
+  height: 8vmin;
+}
+#cool, #snf, #fitness {
+  display: inline;
+  width: 3.5vmin;
+  height: 3.5vmin;
+  vertical-align: middle;
+}
+/* CHECKBOX STYLES end ------------------------ */
+
+
+/* SLIDER STYLES start ------------------------ */
+.slider-container {
+  display: block;
+  margin-top: 5vmin;
+  margin-bottom: 5vmin;
+}
+.slider-container >p {
+  font-size: 1.3rem;
+  margin-left: 5vmin;
+  margin-bottom: 1vmin;
+}
+.slider {
+  display: block;
+  color: lightgrey;
+  margin-left: 5vmin;
+  margin-bottom: 5vmin;
+  -webkit-appearance: none;
+  width: 30vmin;
+  height: 3vmin;
+  background: linear-gradient(90deg, white 50%, white 50%);
+  outline: none;
+  opacity: 0.8;
+  -webkit-trasition: 0.2s;
+  transition: opacity 0.2s;
+  border-radius: 1vmin;
+  box-shadow: 0 0.5vmin 2vmin black;
+}
+#slider-speed{
+  background: linear-gradient(90deg, pink 30%, white 30%);
+}
+#slider-mood{
+  background: linear-gradient(90deg, green 50%, white 45%);
+}
+.slider:hover {
+  opacity: 1;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 2.5vmin;
+  height: 6vmin;
+  background: lightgrey;
+  border-radius: 1vmin;
+  cursor: pointer;
+}
+.slider::-moz-range-thumb {
+  width: 2.5vmin;
+  height: 6vmin;
+  background: lightgrey;
+  border-radius: 1vmin;
+  cursor: pointer;
+}
+/* SLIDER styles end------------------------- */
+
+
+/* RESPONSIVE STYLES  start ----------------- */
+@media only screen and (max-width: 600px) {
+  /* For smaller screen: */
+  h1 {
+   font-size: 7vmin;
+   margin-bottom: 7vmin;
+  }
+  h2 {
+   font-size: 5.5vmin;
+   text-align: center;
+   margin: 5vmin;
+  }
+  .slider-container >p {
+    font-size: 1rem;
+    margin-left: 5vmin;
+    margin-bottom: 1vmin;
+  }
+  .slider {
+    width: 50vmin;
+    height: 4vmin;
+    border-radius: 2vmin;
+  }
+  .slider::-webkit-slider-thumb {
+    height: 7.5vmin;
+  }
+  .slider::-moz-range-thumb {
+    height: 7.5vmin;
+  }
+  .all {
+    display: grid;
+    grid-template-rows: 1.5fr 2fr;
+    grid-template-areas:  "container"
+                         "option-container";
+  }
+  .check-container {
+    font-size: 1rem;
+    margin-top: 1vmin;
+    width: 50vmin;
+  }
+  .snf-check {
+    width: 50vmin;
+  }
+  .flamingo {
+    height: 67vmin;
+  }
+  .option-container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60vmin;
+  }
+  #cool, #snf, #fitness {
+    width: 5vmin;
+    height: 5vmin;
+  }
+  .disco-floor {
+    top: 67vmin;
+  }
+}
+@media only screen and (max-width: 1024px) and (min-width: 600px) {
+  /* For medium screen: */
+  .disco-floor {
+    left: 12vmin;
+  }
+}
+/* RESPONSIVE styles end -------------------- */
