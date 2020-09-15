@@ -3,12 +3,13 @@
   padding: 0;
 }
 
-
 body {
   /* background: #61515A; */
   background: #4A3B4B;
   transition: ease-in-out 1000ms;
 }
+
+/* Text attributes */
 h1 {
   text-align: center;
   color: lightgrey;
@@ -19,11 +20,30 @@ h2 {
   margin: 5vmin;
   color: lightgrey;
 }
- p {
+p {
   font-size: 1.1rem;
   color: lightgrey;
   padding: 1vmin;
- }
+}
+a {
+  color: lightskyblue;
+}
+a:hover {
+  color: palevioletred;
+}
+a:active {
+  color: rgb(209, 94, 132);
+}
+hr {
+  border-top: 0.1vmin dashed #C4C4C4;
+  border-bottom: none;
+  margin-bottom: 1.5vmin;
+}
+.footer {
+ font-size: 0.75em;
+ text-align: center;
+}
+/* text attributes end */
 
 /* GRID start ----------------------------------  */
 .all {
